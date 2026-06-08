@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- Viewport meta tag OBLIGATORIO para que los media queries funcionen en móvil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AcueductosIoT — Dashboard de Monitoreo Hídrico</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Font Awesome para íconos visuales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts: Sora (display) + Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- ============================================================
+       EJERCICIO 1 · BARRA DE NAVEGACIÓN
+       Propiedades clave: display:flex | justify-content:space-between | align-items:center
+       ============================================================ -->
+    <nav class="navbar">
+
+        <!-- Zona 1: Logo / Nombre del sistema (izquierda) -->
+        <div class="nav-logo">
+            <i class="fa-solid fa-droplet nav-logo__icon" aria-hidden="true"></i>
+            <span class="nav-logo__text">AcueductosIoT</span>
+        </div>
+
+        <!-- Zona 2: Enlaces de navegación (centro) -->
+        <ul class="nav-links">
+            <li><a href="#" class="nav-links__item nav-links__item--active">
+                    <i class="fa-solid fa-house" aria-hidden="true"></i> Inicio
+                </a></li>
+            <li><a href="#" class="nav-links__item">
+                    <i class="fa-solid fa-microchip" aria-hidden="true"></i> Sensores
+                </a></li>
+            <li><a href="#" class="nav-links__item">
+                    <i class="fa-solid fa-bell" aria-hidden="true"></i> Alertas
+                    <span class="nav-links__badge">3</span>
+                </a></li>
+            <li><a href="#" class="nav-links__item">
+                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Reportes
+                </a></li>
+        </ul>
+
+        <!-- Zona 3: Controles de usuario (derecha) -->
+        <div class="nav-user">
+            <span class="nav-user__status">
+                <i class="fa-solid fa-circle status-dot" aria-hidden="true"></i> En línea
+            </span>
+            <button class="btn-logout">
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                Cerrar Sesión
+            </button>
+        </div>
+
+    </nav>
+
+    <!-- Banda de estado del sistema -->
+    <div class="system-status-bar">
+        <span><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i> Sistema conectado</span>
+        <span><i class="fa-solid fa-clock" aria-hidden="true"></i> Última sincronización: hace 1 min</span>
+        <span><i class="fa-solid fa-server" aria-hidden="true"></i> 24 sensores activos · 2 con alerta</span>
+    </div>
+
+
+    <!-- ============================================================
+       ESTRUCTURA PRINCIPAL DEL DASHBOARD (Ejercicios 3 y 4)
+       display:flex | flex-direction:row | mínimo 100vh - altura navbar
+       ============================================================ -->
+    <div class="dashboard-layout">
+
+
+        <!-- ============================================================
+         EJERCICIO 3 · SIDEBAR IZQUIERDO
+         flex: 1  →  ocupa 1/5 del espacio total del layout
+         ============================================================ -->
+        <aside class="sidebar">
+
+            <!-- Animación Lottie -->
+            <div class="sidebar-animation">
+                <div id="earth-animation"></div>
+            </div>
+
+            <div class="sidebar__header">
+                <span class="sidebar__title">Centro de Control IoT</span>
+            </div>
+
+            <!-- Navegación lateral semántica -->
+            <nav aria-label="Navegación lateral">
+                <ul class="sidebar__menu">
+                    <li class="sidebar__item sidebar__item--active">
+                        <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                        <span>Resumen</span>
+                    </li>
+                    <li class="sidebar__item">
+                        <i class="fa-solid fa-water" aria-hidden="true"></i>
+                        <span>Tanques</span>
+                    </li>
+                    <li class="sidebar__item">
+                        <i class="fa-solid fa-wave-square" aria-hidden="true"></i>
+                        <span>Presiones</span>
+                    </li>
+                    <li class="sidebar__item">
+                        <i class="fa-solid fa-flask" aria-hidden="true"></i>
+                        <span>Calidad</span>
+                    </li>
+                    <li class="sidebar__item">
+                        <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+                        <span>Caudales</span>
+                    </li>
+                    <li class="sidebar__item">
+                        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+                        <span>Mapa Red</span>
+                    </li>
+                    <li class="sidebar__item">
+                        <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                        <span>Configuración</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Tarjeta de info del sistema en el sidebar -->
+            <div class="sidebar__info-card">
+                <p class="sidebar__info-label">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Zona Operativa
+                </p>
+                <p class="sidebar__info-value">Guanacaste Norte</p>
+                <p class="sidebar__info-label" style="margin-top: 10px;">
+                    <i class="fa-solid fa-calendar-day" aria-hidden="true"></i> Fecha
+                </p>
+                <p class="sidebar__info-value" id="live-date">—</p>
+            </div>
+
+        </aside>
+
+
+        <!-- ============================================================
+         EJERCICIO 3 · CONTENIDO PRINCIPAL
+         flex: 3  →  ocupa 3/5 del espacio total del layout
+         ============================================================ -->
+        <main class="main-content">
+
+            <!-- Encabezado de sección principal -->
+            <header class="main-content__header">
+                <div>
+                    <h1 class="main-content__title">
+                        <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                        Monitoreo en Tiempo Real
+                    </h1>
+                    <p class="main-content__subtitle">Red de sensores IoT · Cooperativa Acueductos Guanacaste</p>
+                </div>
+                <div class="main-content__actions">
+                    <button class="btn-secondary">
+                        <i class="fa-solid fa-download" aria-hidden="true"></i> Exportar
+                    </button>
+                    <button class="btn-primary">
+                        <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> Actualizar
+                    </button>
+                </div>
+            </header>
+
+            <!-- Métricas rápidas globales -->
+            <section class="quick-metrics" aria-label="Métricas rápidas del sistema">
+                <div class="metric-card metric-card--blue">
+                    <i class="fa-solid fa-tower-broadcast metric-card__icon" aria-hidden="true"></i>
+                    <div>
+                        <span class="metric-card__value">24</span>
+                        <span class="metric-card__label">Sensores Activos</span>
+                    </div>
+                </div>
+                <div class="metric-card metric-card--teal">
+                    <i class="fa-solid fa-droplet metric-card__icon" aria-hidden="true"></i>
+                    <div>
+                        <span class="metric-card__value">73%</span>
+                        <span class="metric-card__label">Nivel Promedio</span>
+                    </div>
+                </div>
+                <div class="metric-card metric-card--amber">
+                    <i class="fa-solid fa-triangle-exclamation metric-card__icon" aria-hidden="true"></i>
+                    <div>
+                        <span class="metric-card__value">2</span>
+                        <span class="metric-card__label">Alertas Activas</span>
+                    </div>
+                </div>
+                <div class="metric-card metric-card--green">
+                    <i class="fa-solid fa-circle-check metric-card__icon" aria-hidden="true"></i>
+                    <div>
+                        <span class="metric-card__value">98%</span>
+                        <span class="metric-card__label">Disponibilidad</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gráfico simulado de monitoreo -->
+            <section class="chart-section" aria-label="Gráfico de monitoreo">
+                <div class="chart-section__header">
+                    <h2 class="chart-section__title">
+                        <i class="fa-solid fa-chart-area" aria-hidden="true"></i>
+                        Niveles de Tanque — Últimas 12 horas
+                    </h2>
+                    <div class="chart-section__filters">
+                        <button class="filter-btn filter-btn--active">12h</button>
+                        <button class="filter-btn">24h</button>
+                        <button class="filter-btn">7d</button>
+                    </div>
+                </div>
+                <!-- Gráfico SVG simulado (representación visual del flujo de datos) -->
+                <div class="chart-wrapper" role="img" aria-label="Gráfico de niveles de tanque">
+                    <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" class="chart-svg">
+                        <!-- Grid lines -->
+                        <line x1="0" y1="40" x2="600" y2="40" stroke="#e2e8f0" stroke-width="1"
+                            stroke-dasharray="4,4" />
+                        <line x1="0" y1="80" x2="600" y2="80" stroke="#e2e8f0" stroke-width="1"
+                            stroke-dasharray="4,4" />
+                        <line x1="0" y1="120" x2="600" y2="120" stroke="#e2e8f0" stroke-width="1"
+                            stroke-dasharray="4,4" />
+                        <!-- Etiquetas del eje Y -->
+                        <text x="0" y="37" font-size="10" fill="#94a3b8">100%</text>
+                        <text x="0" y="77" font-size="10" fill="#94a3b8">50%</text>
+                        <text x="0" y="117" font-size="10" fill="#94a3b8">0%</text>
+                        <!-- Área de relleno (Sector A) -->
+                        <path
+                            d="M30,75 C60,65 90,60 120,68 C150,76 180,55 210,50 C240,45 270,58 300,52 C330,46 360,40 390,48 C420,56 450,45 480,50 C510,55 540,42 570,38 L570,140 L30,140 Z"
+                            fill="rgba(14, 165, 233, 0.15)" stroke="none" />
+                        <!-- Línea principal (Sector A) -->
+                        <path
+                            d="M30,75 C60,65 90,60 120,68 C150,76 180,55 210,50 C240,45 270,58 300,52 C330,46 360,40 390,48 C420,56 450,45 480,50 C510,55 540,42 570,38"
+                            fill="none" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"
+                            stroke-linejoin="round" class="chart-line" />
+                        <!-- Línea secundaria (Sector B) -->
+                        <path
+                            d="M30,95 C60,100 90,88 120,92 C150,96 180,82 210,78 C240,74 270,85 300,90 C330,95 360,80 390,75 C420,70 450,82 480,78 C510,74 540,68 570,72"
+                            fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-dasharray="6,3" class="chart-line" />
+                        <!-- Punto de alerta (círculo) -->
+                        <circle cx="390" cy="48" r="5" fill="#f59e0b" stroke="#fff" stroke-width="2"
+                            class="chart-alert" />
+                        <!-- Leyenda -->
+                        <rect x="420" y="8" width="10" height="4" rx="2" fill="#0ea5e9" />
+                        <text x="434" y="14" font-size="10" fill="#64748b">Sector A (principal)</text>
+                        <rect x="420" y="20" width="10" height="4" rx="2" fill="#14b8a6" />
+                        <text x="434" y="26" font-size="10" fill="#64748b">Sector B (secundario)</text>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- ============================================================
+           EJERCICIO 2 · CUADRÍCULA DE SENSORES IoT
+           display:flex | flex-wrap:wrap | gap | flex-basis: calc(33%...)
+           ============================================================ -->
+            <section class="sensor-section" aria-labelledby="sensor-section-title">
+
+                <div class="sensor-section__header">
+                    <h2 class="sensor-section__title" id="sensor-section-title">
+                        <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+                        Sensores IoT — Estado en Tiempo Real
+                    </h2>
+                    <span class="sensor-section__count">6 puntos de medición</span>
+                </div>
+
+                <!-- Grid de tarjetas de sensores: flex-wrap:wrap | gap:16px | flex-basis: calc(33.333% - ...) -->
+                <div class="sensor-grid">
+
+                    <!-- Tarjeta 1: Nivel de Tanque Principal -->
+                    <div class="sensor-card sensor-card--ok">
+                        <div class="sensor-card__header">
+                            <span class="sensor-card__icon-wrap sensor-card__icon-wrap--blue">
+                                <i class="fa-solid fa-water" aria-hidden="true"></i>
+                            </span>
+                            <span class="sensor-card__status sensor-card__status--ok">
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Normal
+                            </span>
+                        </div>
+                        <h3 class="sensor-card__name">Nivel de Tanque Principal</h3>
+                        <p class="sensor-card__value">73<span class="sensor-card__unit">%</span></p>
+                        <div class="sensor-card__bar-wrap" role="progressbar" aria-valuenow="73" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <div class="sensor-card__bar sensor-card__bar--blue" style="width: 73%"></div>
+                        </div>
+                        <p class="sensor-card__meta">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Sector A
+                            <span class="sensor-card__time">· hace 2 min</span>
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 2: Presión de Red -->
+                    <div class="sensor-card sensor-card--warning">
+                        <div class="sensor-card__header">
+                            <span class="sensor-card__icon-wrap sensor-card__icon-wrap--amber">
+                                <i class="fa-solid fa-gauge" aria-hidden="true"></i>
+                            </span>
+                            <span class="sensor-card__status sensor-card__status--warning">
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Alerta
+                            </span>
+                        </div>
+                        <h3 class="sensor-card__name">Presión de Red</h3>
+                        <p class="sensor-card__value">18<span class="sensor-card__unit">PSI</span></p>
+                        <div class="sensor-card__bar-wrap" role="progressbar" aria-valuenow="36" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <div class="sensor-card__bar sensor-card__bar--amber" style="width: 36%"></div>
+                        </div>
+                        <p class="sensor-card__meta">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Calle 2 — Sector B
+                            <span class="sensor-card__time">· hace 5 min</span>
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 3: Calidad del Agua (Cloro residual) -->
+                    <div class="sensor-card sensor-card--ok">
+                        <div class="sensor-card__header">
+                            <span class="sensor-card__icon-wrap sensor-card__icon-wrap--teal">
+                                <i class="fa-solid fa-flask" aria-hidden="true"></i>
+                            </span>
+                            <span class="sensor-card__status sensor-card__status--ok">
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Normal
+                            </span>
+                        </div>
+                        <h3 class="sensor-card__name">Calidad del Agua</h3>
+                        <p class="sensor-card__value">0.8<span class="sensor-card__unit">mg/L</span></p>
+                        <div class="sensor-card__bar-wrap" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <div class="sensor-card__bar sensor-card__bar--teal" style="width: 80%"></div>
+                        </div>
+                        <p class="sensor-card__meta">
+                            <i class="fa-solid fa-flask" aria-hidden="true"></i> Cloro residual
+                            <span class="sensor-card__time">· hace 1 min</span>
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 4: Caudal de Entrada -->
+                    <div class="sensor-card sensor-card--ok">
+                        <div class="sensor-card__header">
+                            <span class="sensor-card__icon-wrap sensor-card__icon-wrap--blue">
+                                <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+                            </span>
+                            <span class="sensor-card__status sensor-card__status--ok">
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Normal
+                            </span>
+                        </div>
+                        <h3 class="sensor-card__name">Caudal de Entrada</h3>
+                        <p class="sensor-card__value">142<span class="sensor-card__unit">L/min</span></p>
+                        <div class="sensor-card__bar-wrap" role="progressbar" aria-valuenow="71" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <div class="sensor-card__bar sensor-card__bar--blue" style="width: 71%"></div>
+                        </div>
+                        <p class="sensor-card__meta">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Naciente Sur
+                            <span class="sensor-card__time">· hace 3 min</span>
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 5: Temperatura del Agua -->
+                    <div class="sensor-card sensor-card--ok">
+                        <div class="sensor-card__header">
+                            <span class="sensor-card__icon-wrap sensor-card__icon-wrap--teal">
+                                <i class="fa-solid fa-temperature-half" aria-hidden="true"></i>
+                            </span>
+                            <span class="sensor-card__status sensor-card__status--ok">
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Normal
+                            </span>
+                        </div>
+                        <h3 class="sensor-card__name">Temperatura del Agua</h3>
+                        <p class="sensor-card__value">22.4<span class="sensor-card__unit">°C</span></p>
+                        <div class="sensor-card__bar-wrap" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <div class="sensor-card__bar sensor-card__bar--teal" style="width: 45%"></div>
+                        </div>
+                        <p class="sensor-card__meta">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Tanque Principal
+                            <span class="sensor-card__time">· hace 2 min</span>
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 6: Estado de Válvula de Emergencia -->
+                    <div class="sensor-card sensor-card--critical">
+                        <div class="sensor-card__header">
+                            <span class="sensor-card__icon-wrap sensor-card__icon-wrap--red">
+                                <i class="fa-solid fa-valve" aria-hidden="true"></i>
+                            </span>
+                            <span class="sensor-card__status sensor-card__status--critical">
+                                <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> Crítico
+                            </span>
+                        </div>
+                        <h3 class="sensor-card__name">Válvula de Emergencia</h3>
+                        <p class="sensor-card__value sensor-card__value--text">ABIERTA</p>
+                        <div class="sensor-card__bar-wrap" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <div class="sensor-card__bar sensor-card__bar--red" style="width: 100%"></div>
+                        </div>
+                        <p class="sensor-card__meta">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Estación Central
+                            <span class="sensor-card__time">· hace 8 min</span>
+                        </p>
+                    </div>
+
+                </div><!-- /sensor-grid (fin Ejercicio 2) -->
+
+            </section>
+
+        </main><!-- /main-content (fin Ejercicio 3 — area principal) -->
+
+
+        <!-- ============================================================
+         EJERCICIO 3 · PANEL DE ALERTAS (derecha)
+         flex: 1  →  ocupa 1/5 del espacio total del layout
+         ============================================================ -->
+        <aside class="alert-panel">
+
+            <div class="alert-panel__header">
+                <h2 class="alert-panel__title">
+                    <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                    Alertas Activas
+                </h2>
+                <span class="alert-panel__badge">3</span>
+            </div>
+
+            <!-- Lista de alertas -->
+            <div class="alerts-list">
+
+                <article class="alert-item alert-item--critical">
+                    <div class="alert-item__icon-wrap">
+                        <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-item__body">
+                        <p class="alert-item__msg">Válvula de emergencia abierta — Estación Central</p>
+                        <time class="alert-item__time">Hace 8 minutos</time>
+                    </div>
+                </article>
+
+                <article class="alert-item alert-item--warning">
+                    <div class="alert-item__icon-wrap">
+                        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-item__body">
+                        <p class="alert-item__msg">Presión baja detectada — Sector B, Calle 2</p>
+                        <time class="alert-item__time">Hace 5 minutos</time>
+                    </div>
+                </article>
+
+                <article class="alert-item alert-item--info">
+                    <div class="alert-item__icon-wrap">
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-item__body">
+                        <p class="alert-item__msg">Mantenimiento programado Naciente Sur — mañana 06:00</p>
+                        <time class="alert-item__time">Hace 1 hora</time>
+                    </div>
+                </article>
+
+                <article class="alert-item alert-item--ok">
+                    <div class="alert-item__icon-wrap">
+                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-item__body">
+                        <p class="alert-item__msg">Cloro residual en rango normal — todos los sectores</p>
+                        <time class="alert-item__time">Hace 1 min</time>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Resumen visual del panel de alertas -->
+            <div class="alert-panel__summary">
+                <h3 class="alert-panel__summary-title">
+                    <i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Estado Global
+                </h3>
+                <ul class="status-summary">
+                    <li class="status-summary__item">
+                        <span class="status-dot status-dot--ok"></span>
+                        <span>22 sensores normales</span>
+                    </li>
+                    <li class="status-summary__item">
+                        <span class="status-dot status-dot--warning"></span>
+                        <span>1 con advertencia</span>
+                    </li>
+                    <li class="status-summary__item">
+                        <span class="status-dot status-dot--critical"></span>
+                        <span>1 en estado crítico</span>
+                    </li>
+                </ul>
+            </div>
+
+        </aside><!-- /alert-panel (fin Ejercicio 3 — panel derecho) -->
+
+    </div><!-- /dashboard-layout (fin Ejercicio 3) -->
+
+
+    <!-- ============================================================
+       FOOTER — Sección profesional de cierre
+       ============================================================ -->
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+                <span>AcueductosIoT</span>
+            </div>
+            <p class="site-footer__copy">
+                © 2025 Cooperativa de Acueductos Comunitarios Guanacaste · ISW-521 Lab #3
+            </p>
+            <p class="site-footer__tech">
+                Maquetado con <strong>CSS Flexbox</strong> · Sin floats · Sin position:absolute
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Muestra la fecha actual en el sidebar
+        const dateEl = document.getElementById('live-date');
+
+        if (dateEl) {
+            const now = new Date();
+
+            dateEl.textContent = now.toLocaleDateString('es-CR', {
+                weekday: 'short',
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+    </script>
+
+    <!-- Librería Lottie -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+    <script>
+        lottie.loadAnimation({
+            container: document.getElementById('earth-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'assets/earth-globe.json'
+        });
+    </script>
+
+</body>
+
+</html>

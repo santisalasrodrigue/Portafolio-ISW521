@@ -1,0 +1,1231 @@
+/* ================================================================
+   LABORATORIO #3 — DASHBOARD DE MONITOREO HÍDRICO
+   ISW-521 · Programación en Ambiente Web I
+   Autor: [Tu nombre aquí]
+   Descripción: Maquetación de Layouts con CSS Flexbox exclusivamente.
+   Sin floats. Sin position:absolute para columnas.
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   VARIABLES CSS — Paleta de colores y tokens de diseño
+   ---------------------------------------------------------------- */
+:root {
+  /* Colores primarios (azul agua + teal) */
+  --color-primary:       #0ea5e9;      /* sky-500 */
+  --color-primary-dark:  #0284c7;      /* sky-600 */
+  --color-primary-light: #e0f2fe;      /* sky-100 */
+
+  --color-teal:          #14b8a6;      /* teal-500 */
+  --color-teal-light:    #ccfbf1;      /* teal-100 */
+
+  /* Colores de estado semántico */
+  --color-ok:            #22c55e;      /* verde  */
+  --color-ok-bg:         #dcfce7;
+  --color-warning:       #f59e0b;      /* ámbar  */
+  --color-warning-bg:    #fef3c7;
+  --color-critical:      #ef4444;      /* rojo   */
+  --color-critical-bg:   #fee2e2;
+  --color-info:          #6366f1;      /* índigo */
+  --color-info-bg:       #e0e7ff;
+
+  /* Fondo y superficie */
+  --bg-page:             #f0f7ff;      /* azul muy suave */
+  --bg-surface:          #ffffff;
+  --bg-sidebar:          #0f172a;      /* slate-900 oscuro */
+  --bg-sidebar-hover:    #1e293b;      /* slate-800 */
+  --bg-navbar:           #0c1a2e;      /* azul muy oscuro */
+
+  /* Texto */
+  --text-primary:        #0f172a;
+  --text-secondary:      #64748b;
+  --text-muted:          #94a3b8;
+  --text-on-dark:        #f1f5f9;
+  --text-on-dark-muted:  #94a3b8;
+
+  /* Bordes */
+  --border:              #e2e8f0;
+  --border-strong:       #cbd5e1;
+
+  /* Sombras */
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 16px rgba(14,165,233,0.08), 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+
+  /* Tipografía */
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* Transiciones */
+  --transition: 0.2s ease;
+
+  /* Radios de borde */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+}
+
+/* ----------------------------------------------------------------
+   RESET Y BASE
+   ---------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  /* Sticky footer: el body es flex column → main-content flex:1 empuja el footer */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  background: none;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.3;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+/* ================================================================
+   EJERCICIO 1 · BARRA DE NAVEGACIÓN
+   Concepto: Main Axis (horizontal) y Cross Axis (vertical)
+   - justify-content: space-between → distribuye las 3 zonas horizontalmente
+   - align-items: center           → centra verticalmente sin importar altura
+   ================================================================ */
+
+/* justify-content: space-between empuja el logo a la izquierda,
+   los links al centro (porque ocupan el espacio intermedio)
+   y el botón a la derecha, todo en el mismo "carril" horizontal.
+   align-items: center garantiza que los tres, sin importar su altura,
+   queden alineados en el punto medio del eje cruzado (vertical). */
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Distribuye los 3 grupos en el eje principal */
+  align-items: center;            /* Centra en el eje cruzado (vertical) */
+  min-height: 64px;
+  background-color: var(--bg-navbar);
+  padding: 0 28px;
+  position: sticky;               /* Se queda fija al hacer scroll */
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+/* --- Logo --- */
+.nav-logo {
+  display: flex;      /* Logo e ícono en fila */
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo__icon {
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 6px rgba(14,165,233,0.6));
+}
+
+.nav-logo__text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text-on-dark);
+  letter-spacing: -0.02em;
+}
+
+/* --- Enlace de navegación central --- */
+/* Los <li> también se vuelven flex items al poner display:flex en el <ul> */
+.nav-links {
+  display: flex;         /* Convierte los <li> en flex items */
+  align-items: center;
+  gap: 4px;             /* Espacio entre cada elemento de la lista */
+}
+
+.nav-links__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-on-dark-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background var(--transition), color var(--transition);
+  position: relative;
+}
+
+.nav-links__item:hover {
+  background-color: rgba(255,255,255,0.07);
+  color: var(--text-on-dark);
+}
+
+.nav-links__item--active {
+  background-color: rgba(14,165,233,0.15);
+  color: var(--color-primary);
+}
+
+/* Badge de notificación en el link de Alertas */
+.nav-links__badge {
+  background-color: var(--color-critical);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 1px 5px;
+  line-height: 1.4;
+}
+
+/* --- Controles de usuario (derecha) --- */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-user__status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-on-dark-muted);
+}
+
+/* Punto verde de estado "En línea" */
+.status-dot {
+  color: var(--color-ok);
+  font-size: 0.55rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: var(--radius-sm);
+  color: #fca5a5;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background var(--transition), color var(--transition);
+}
+
+.btn-logout:hover {
+  background-color: var(--color-critical);
+  color: #fff;
+}
+
+/* --- Banda de estado del sistema (debajo del navbar) --- */
+.system-status-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  background: linear-gradient(135deg, #0e3a5c 0%, #0a2a44 100%);
+  padding: 8px 28px;
+  font-size: 0.78rem;
+  color: #7dd3fc;
+  border-bottom: 1px solid rgba(14,165,233,0.2);
+  flex-wrap: wrap;      /* En pantallas pequeñas los items se envuelven */
+  gap: 8px 24px;
+}
+
+.system-status-bar span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* ================================================================
+   EJERCICIO 3 · LAYOUT PRINCIPAL DE 3 COLUMNAS
+   Concepto: flex-grow, flex-shrink, flex-basis (shorthand flex)
+   La "pizza" del espacio libre:
+     Sidebar (1) + Main (3) + Panel (1) = 5 porciones totales
+     → flex:1 = 1/5 del ancho disponible
+     → flex:3 = 3/5 del ancho disponible
+   SIN usar width:20%, width:60%, width:20%
+   ================================================================ */
+
+/* El contenedor principal descuenta la altura del navbar (64px)
+   y la barra de estado (~37px) para ocupar todo el viewport restante */
+.dashboard-layout {
+  display: flex;
+  flex-direction: row;           /* Eje principal horizontal: las columnas se forman aquí */
+  flex: 1;                       /* Crece para llenar el espacio en el body (sticky footer) */
+  min-height: calc(100vh - 101px);
+}
+
+
+/* ----------------------------------------------------------------
+   SIDEBAR IZQUIERDO — flex: 1 → 1/5 del espacio
+   ---------------------------------------------------------------- */
+
+/* REFLEXIÓN EJ3 Q1: ¿flex:1 vs flex-grow:1?
+   flex:1 es el shorthand de flex-grow:1, flex-shrink:1, flex-basis:0%.
+   flex-grow:1 por sí solo NO resetea flex-basis ni flex-shrink.
+   flex:1 fuerza el basis a 0 antes de distribuir el espacio libre.
+
+   REFLEXIÓN EJ3 Q2: Para que Sidebar nunca sea menor a 180px:
+   agregar  min-width: 180px  → actúa como "piso" que el algoritmo respeta.
+
+   REFLEXIÓN EJ3 Q3: Si Main pasa a flex:5, el total sube a 7 porciones.
+   Sidebar=1/7, Main=5/7, Panel=1/7 → el área central se hace mucho más grande
+   y las columnas laterales se comprimen considerablemente. */
+
+.sidebar {
+  flex: 1;                        /* 1/5 del espacio disponible */
+  min-width: 180px;               /* Piso: nunca se encoge más de esto */
+  background-color: var(--bg-sidebar);
+  padding: 0;
+  display: flex;                  /* El sidebar también es contenedor flex (columna) */
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.sidebar__header {
+  padding: 20px 18px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.sidebar__title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #475569;
+}
+
+.sidebar__menu {
+  padding: 12px 10px;
+  flex: 1;                       /* La lista crece para llenar el espacio del sidebar */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-on-dark-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.sidebar__item:hover {
+  background-color: var(--bg-sidebar-hover);
+  color: var(--text-on-dark);
+}
+
+.sidebar__item--active {
+  background: linear-gradient(135deg, rgba(14,165,233,0.2), rgba(14,165,233,0.08));
+  color: var(--color-primary);
+  border-left: 3px solid var(--color-primary);
+  padding-left: 9px;             /* Compensar el borde izquierdo */
+}
+
+.sidebar__info-card {
+  margin: 12px 10px 16px;
+  padding: 14px;
+  background-color: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-md);
+}
+
+.sidebar__info-label {
+  font-size: 0.72rem;
+  color: #475569;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sidebar__info-value {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+
+/* ----------------------------------------------------------------
+   CONTENIDO PRINCIPAL — flex: 3 → 3/5 del espacio
+   ---------------------------------------------------------------- */
+.main-content {
+  flex: 3;                       /* 3/5 del espacio disponible */
+  background-color: var(--bg-page);
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Encabezado del main */
+.main-content__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.main-content__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.main-content__title i {
+  color: var(--color-primary);
+}
+
+.main-content__subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.main-content__actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Botones de acción */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: opacity var(--transition), transform var(--transition);
+  box-shadow: 0 2px 8px rgba(14,165,233,0.3);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background var(--transition);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-page);
+}
+
+/* --- Métricas rápidas --- */
+/* display:flex para poner las 4 tarjetas en fila */
+.quick-metrics {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;               /* En pantallas pequeñas se envuelven */
+}
+
+.metric-card {
+  flex: 1;                       /* Todas las tarjetas de igual tamaño */
+  min-width: 130px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-card__icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;               /* El ícono no se comprime */
+}
+
+.metric-card__value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.metric-card__label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Variantes de color por métrica */
+.metric-card--blue  .metric-card__icon,
+.metric-card--blue  .metric-card__value { color: var(--color-primary); }
+.metric-card--teal  .metric-card__icon,
+.metric-card--teal  .metric-card__value { color: var(--color-teal); }
+.metric-card--amber .metric-card__icon,
+.metric-card--amber .metric-card__value { color: var(--color-warning); }
+.metric-card--green .metric-card__icon,
+.metric-card--green .metric-card__value { color: var(--color-ok); }
+
+/* --- Sección del gráfico --- */
+.chart-section {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+
+.chart-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chart-section__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-section__title i {
+  color: var(--color-primary);
+}
+
+.chart-section__filters {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background-color: var(--bg-page);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.filter-btn:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.filter-btn--active {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.chart-wrapper {
+  background-color: var(--bg-page);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1px solid var(--border);
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Animación de la línea del gráfico */
+.chart-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-line 2s ease forwards;
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Pulso del punto de alerta en el gráfico */
+.chart-alert {
+  animation: alert-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes alert-pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.7; }
+}
+
+
+/* ================================================================
+   EJERCICIO 2 · CUADRÍCULA DE SENSORES IoT
+   Concepto: flex-wrap:wrap + gap moderno + flex-basis
+   - flex-wrap:wrap → los items se envuelven en nuevas filas cuando no caben
+   - gap:16px       → equivale a row-gap + column-gap (reemplaza el hack de margin)
+   - flex-basis:calc(33.333% - ...)  → cada tarjeta ocupa ~1/3 del ancho
+
+   DIFERENCIA align-items vs align-content:
+   align-items:  controla la alineación de los items DENTRO DE CADA FILA.
+                 Si una tarjeta es más alta, stretch la iguala con sus vecinas.
+   align-content: controla el espacio ENTRE LAS FILAS en su conjunto.
+                  Solo funciona con flex-wrap:wrap y cuando hay más de una fila.
+   ================================================================ */
+
+.sensor-section {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+
+.sensor-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sensor-section__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sensor-section__title i {
+  color: var(--color-teal);
+}
+
+.sensor-section__count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background-color: var(--bg-page);
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+}
+
+/* --- La cuadrícula principal del Ejercicio 2 --- */
+/* flex-wrap:wrap permite que las tarjetas pasen a la siguiente fila
+   cuando el ancho disponible no alcanza para todas.
+   gap:16px reemplaza el antiguo truco de margin:8px (que sumaba espacio
+   tanto interior como exterior, rompiendo los cálculos de flex-basis). */
+.sensor-grid {
+  display: flex;
+  flex-wrap: wrap;           /* Los items se envuelven en nuevas filas */
+  gap: 16px;                 /* Espaciado entre tarjetas (row y column) */
+
+  /* align-items:stretch (valor por defecto): iguala la altura de todas
+     las tarjetas en la misma fila, aunque su contenido sea diferente.
+     align-content:flex-start: las filas se agrupan hacia arriba si
+     hay espacio sobrante en el contenedor. */
+  align-items: stretch;
+  align-content: flex-start;
+}
+
+/* Cada tarjeta ocupa aprox. 1/3 del ancho, descontando el gap.
+   calc(33.333% - 11px): con gap:16px y 3 columnas hay 2 gaps divididos
+   en 3 partes → 16px*(2/3) ≈ 10.67px por tarjeta, redondeado a 11px.
+   Si cambiamos a 48% caben 2 por fila; si ponemos 100% caben 1 por fila. */
+.sensor-card {
+  flex-basis: calc(33.333% - 11px);
+  min-width: 200px;          /* Evita que se comprimam demasiado */
+  flex-grow: 0;              /* No crecen más de su base */
+  flex-shrink: 1;
+
+  padding: 18px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Línea de acento lateral según estado */
+.sensor-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+.sensor-card--ok::before       { background: var(--color-ok); }
+.sensor-card--warning::before  { background: var(--color-warning); }
+.sensor-card--critical::before { background: var(--color-critical); }
+
+.sensor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Cabecera de tarjeta: ícono + badge de estado */
+.sensor-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sensor-card__icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+
+.sensor-card__icon-wrap--blue  { background: var(--color-primary-light); color: var(--color-primary-dark); }
+.sensor-card__icon-wrap--teal  { background: var(--color-teal-light);    color: #0d9488; }
+.sensor-card__icon-wrap--amber { background: var(--color-warning-bg);    color: #b45309; }
+.sensor-card__icon-wrap--red   { background: var(--color-critical-bg);   color: #b91c1c; }
+
+/* Badge de estado */
+.sensor-card__status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 99px;
+}
+
+.sensor-card__status--ok       { background: var(--color-ok-bg);       color: #15803d; }
+.sensor-card__status--warning  { background: var(--color-warning-bg);  color: #92400e; }
+.sensor-card__status--critical { background: var(--color-critical-bg); color: #b91c1c; }
+
+/* Nombre y valor del sensor */
+.sensor-card__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.sensor-card__value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.sensor-card__value--text {
+  font-size: 1.35rem;
+  color: var(--color-critical);
+}
+
+.sensor-card__unit {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
+
+/* Barra de progreso del sensor */
+.sensor-card__bar-wrap {
+  height: 5px;
+  background-color: var(--bg-page);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+.sensor-card__bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.8s ease;
+}
+
+.sensor-card__bar--blue  { background: linear-gradient(90deg, var(--color-primary), #38bdf8); }
+.sensor-card__bar--teal  { background: linear-gradient(90deg, var(--color-teal), #2dd4bf); }
+.sensor-card__bar--amber { background: linear-gradient(90deg, var(--color-warning), #fbbf24); }
+.sensor-card__bar--red   { background: linear-gradient(90deg, var(--color-critical), #f87171);
+                           animation: bar-pulse 1s ease-in-out infinite; }
+
+@keyframes bar-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+/* Metadatos (ubicación + tiempo) */
+.sensor-card__meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sensor-card__time {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+
+/* ================================================================
+   EJERCICIO 3 (continuación) · PANEL DE ALERTAS DERECHO
+   flex: 1  →  ocupa 1/5 del espacio total del layout
+   ================================================================ */
+.alert-panel {
+  flex: 1;                       /* 1/5 del espacio disponible */
+  min-width: 200px;
+  background-color: var(--bg-surface);
+  border-left: 1px solid var(--border);
+  padding: 0;
+  display: flex;                 /* Panel como contenedor flex en columna */
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.alert-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.alert-panel__title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alert-panel__title i {
+  color: var(--color-warning);
+}
+
+.alert-panel__badge {
+  background-color: var(--color-critical);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 99px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Lista de alertas */
+.alerts-list {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.alert-item {
+  display: flex;              /* Ícono + texto en fila */
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: transform var(--transition);
+}
+
+.alert-item:hover {
+  transform: translateX(3px);
+}
+
+.alert-item--critical { background: var(--color-critical-bg); border-color: rgba(239,68,68,0.2); }
+.alert-item--warning  { background: var(--color-warning-bg);  border-color: rgba(245,158,11,0.2); }
+.alert-item--info     { background: var(--color-info-bg);     border-color: rgba(99,102,241,0.2); }
+.alert-item--ok       { background: var(--color-ok-bg);       border-color: rgba(34,197,94,0.2); }
+
+.alert-item__icon-wrap {
+  flex-shrink: 0;
+  font-size: 1rem;
+  padding-top: 1px;
+}
+
+.alert-item--critical .alert-item__icon-wrap { color: var(--color-critical); }
+.alert-item--warning  .alert-item__icon-wrap { color: var(--color-warning); }
+.alert-item--info     .alert-item__icon-wrap { color: var(--color-info); }
+.alert-item--ok       .alert-item__icon-wrap { color: var(--color-ok); }
+
+.alert-item__body { display: flex; flex-direction: column; gap: 3px; }
+
+.alert-item__msg {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.alert-item__time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Resumen global en el panel de alertas */
+.alert-panel__summary {
+  margin: 0 12px 16px;
+  padding: 14px;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.alert-panel__summary-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.status-summary__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot--ok       { background: var(--color-ok); }
+.status-dot--warning  { background: var(--color-warning); }
+.status-dot--critical { background: var(--color-critical);
+                        animation: pulse 1.5s infinite; }
+
+
+/* ================================================================
+   FOOTER — Sticky gracias al body flex column y main-content flex:1
+   ================================================================ */
+.site-footer {
+  background-color: var(--bg-navbar);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 18px 28px;
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+}
+
+.site-footer__copy {
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.site-footer__tech {
+  font-size: 0.72rem;
+  color: #334155;
+}
+
+.site-footer__tech strong {
+  color: var(--color-primary);
+}
+
+
+/* ================================================================
+   EJERCICIO 4 · RESPONSIVE MÓVIL
+   Concepto: @media (max-width: 768px) + flex-direction:column
+   El layout de 3 columnas se apila verticalmente en pantallas pequeñas.
+
+   ¿Por qué min-height y no height: 100vh?
+   height: 100vh es FIJO: si el contenido supera el viewport, genera overflow
+   y el footer queda oculto debajo del borde de pantalla.
+   min-height: 100vh es un MÍNIMO: permite que el contenedor crezca tanto
+   como necesite para mostrar todo el contenido, pero siempre garantiza
+   al menos la altura completa del viewport → el footer queda al fondo.
+   ================================================================ */
+
+@media (max-width: 1024px) {
+  /* En laptops pequeñas, el sidebar se comprime un poco */
+  .sidebar {
+    min-width: 160px;
+  }
+
+  /* Las tarjetas de sensores pasan a 2 columnas */
+  .sensor-card {
+    flex-basis: calc(50% - 8px);
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* El body garantiza que el footer quede al fondo en cualquier pantalla */
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ¡El cambio clave del Ejercicio 4!
+     Las 3 columnas pasan a apilarse verticalmente */
+  .dashboard-layout {
+    flex-direction: column;    /* De row → column: sidebar, main y panel se apilan */
+    min-height: auto;
+  }
+
+  .sidebar {
+    flex: none;                /* Deja de crecer y encoger proporcionalmente */
+    width: 100%;               /* Ocupa toda la fila horizontal */
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* El menú lateral se muestra en fila horizontal en móvil */
+  .sidebar__menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 4px;
+  }
+
+  .sidebar__item {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  .sidebar__info-card {
+    display: none;             /* Ocultar en móvil para ahorrar espacio */
+  }
+
+  .main-content {
+    flex: 1;                   /* Se expande para llenar el espacio restante */
+    padding: 16px;
+  }
+
+  .alert-panel {
+    flex: none;
+    width: 100%;
+    min-height: auto;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Navbar: esconder links de nav en pantallas muy pequeñas */
+  .nav-links { display: none; }
+  .nav-user__status { display: none; }
+
+  /* Tarjetas de sensores en 1 columna en móvil */
+  .sensor-card {
+    flex-basis: 100%;
+  }
+
+  /* Métricas rápidas en 2 columnas en móvil */
+  .metric-card {
+    flex-basis: calc(50% - 7px);
+  }
+
+  /* Header del main en columna */
+  .main-content__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .system-status-bar {
+    justify-content: flex-start;
+    font-size: 0.72rem;
+  }
+
+  .site-footer__inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .nav-logo__text {
+    font-size: 1rem;
+  }
+
+  .metric-card {
+    flex-basis: 100%;
+  }
+
+  .main-content__title {
+    font-size: 1.15rem;
+  }
+}
+
+/* ================================================================
+   ACCESIBILIDAD — Focus visible para navegación con teclado
+   ================================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ================================================================
+   FIN DEL ARCHIVO
+   Resumen de propiedades Flexbox usadas:
+   EJ1: display:flex | justify-content:space-between | align-items:center
+   EJ2: flex-wrap:wrap | gap | flex-basis:calc(33.333% - ...)
+   EJ3: flex:1 | flex:3 | flex-direction:row | min-height:calc(100vh-...)
+   EJ4: @media(max-width:768px) | flex-direction:column | min-height:100vh
+   ================================================================ */
+
+/* ================================================================
+   ANIMACIÓN LOTTIE DEL SIDEBAR
+   ================================================================ */
+
+.sidebar-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(14,165,233,0.12) 0%,
+      rgba(14,165,233,0.04) 45%,
+      transparent 70%
+    );
+}
+
+#earth-animation {
+  width: 170px;
+  height: 170px;
+  transition: transform 0.3s ease;
+  filter:
+    drop-shadow(0 0 12px rgba(14,165,233,0.5))
+    drop-shadow(0 0 30px rgba(14,165,233,0.25));
+}
+
+#earth-animation:hover {
+  transform: scale(1.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #earth-animation {
+    width: 120px;
+    height: 120px;
+  }
+
+  .sidebar-animation {
+    padding: 10px;
+  }
+}
