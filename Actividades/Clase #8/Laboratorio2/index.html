@@ -1,0 +1,763 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Dashboard profesional de restauración y mantenimiento para Toyota Yaris 2026 Azul Metálico. Seguimiento de estado mecánico, inventario de repuestos y presupuesto del Taller Mecánico Precision Motors." />
+  <meta name="keywords"
+    content="Toyota Yaris 2026, restauración mecánica, dashboard, mantenimiento vehicular, ISW-521" />
+  <meta name="author" content="ISW-521 Programación en Ambiente Web I" />
+  <title>Dashboard Restauración | Toyota Yaris 2026 — Precision Motors</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" />
+  <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Elementos de fondo decorativos (Glows difuminados) -->
+  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+
+  <!-- ===== DASHBOARD WRAPPER — GRID PRINCIPAL ===== -->
+  <div class="dashboard-wrapper" role="main" aria-label="Dashboard de Restauración Mecánica Toyota Yaris 2026">
+
+    <!-- ===== ZONA A: HEADER ===== -->
+    <header class="dashboard-header" role="banner" aria-labelledby="header-title">
+      <div class="header-brand">
+        <div class="brand-logo" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
+            <circle cx="16" cy="16" r="15" stroke="url(#logoGrad)" stroke-width="2" />
+            <ellipse cx="16" cy="16" rx="6" ry="12" stroke="url(#logoGrad)" stroke-width="2" />
+            <line x1="1" y1="16" x2="31" y2="16" stroke="url(#logoGrad)" stroke-width="2" />
+            <defs>
+              <linearGradient id="logoGrad" x1="1" y1="1" x2="31" y2="31" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#3b82f6" />
+                <stop offset="1" stop-color="#1d4ed8" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 id="header-title" class="brand-name">Precision Motors</h1>
+          <span class="brand-tagline">Sistema de Gestión de Restauración Vehicular</span>
+        </div>
+      </div>
+
+      <nav class="header-nav" aria-label="Navegación principal del dashboard">
+        <ul class="nav-list" role="list">
+          <li><a href="#hero" class="nav-link nav-link--active" aria-current="page">Vehículo</a></li>
+          <li><a href="#status" class="nav-link">Estado Mecánico</a></li>
+          <li><a href="#inventory" class="nav-link">Inventario</a></li>
+          <li><a href="#footer" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema de color" type="button">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        </button>
+        <div class="header-badge" role="status" aria-label="Proyecto activo">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>Proyecto Activo</span>
+        </div>
+        <div class="header-date">
+          <time datetime="2026-06-10">10 Jun 2026</time>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== ZONA B: VEHICLE HERO ===== -->
+    <section class="vehicle-hero" id="hero" aria-labelledby="hero-title">
+      <figure class="hero-figure">
+        <img src="assets/vehiculo-toyota.jpg"
+          alt="Toyota Yaris 2026 color Azul Metálico, vista lateral completa. Vehículo compacto con diseño deportivo, faros LED, rines de aleación y carrocería en proceso de restauración. Matrícula CRC-7842, propiedad de Carlos Vargas."
+          class="hero-image" loading="eager" />
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <figcaption class="hero-caption">
+          <div class="hero-info">
+            <div class="hero-badge-row">
+              <span class="hero-badge hero-badge--year">2026</span>
+              <span class="hero-badge hero-badge--status">En Restauración</span>
+            </div>
+            <h2 id="hero-title" class="hero-vehicle-name">Toyota Yaris</h2>
+            <p class="hero-vehicle-sub">1.5L Dynamic Force Dual VVT-i · CVT · Azul Metálico</p>
+          </div>
+
+          <div class="hero-progress-block" role="region" aria-label="Progreso general del proyecto">
+            <div class="hero-progress-header">
+              <span class="hero-progress-label">Avance General del Proyecto</span>
+              <span class="hero-progress-value" aria-label="67 por ciento completado">67%</span>
+            </div>
+            <div class="hero-progress-track" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"
+              aria-label="Barra de progreso general: 67% completado">
+              <div class="hero-progress-fill" style="--progress: 67%"></div>
+            </div>
+            <div class="hero-progress-meta">
+              <span>Inicio: 15 Mar 2026</span>
+              <span>Entrega Est.: 30 Jun 2026</span>
+            </div>
+          </div>
+        </figcaption>
+      </figure>
+
+      <div class="hero-stats" role="region" aria-label="Estadísticas rápidas del vehículo">
+        <article class="hero-stat-card" aria-label="Kilometraje del vehículo">
+          <span class="stat-icon" aria-hidden="true">🛣️</span>
+          <div class="stat-body">
+            <span class="stat-value">12,500</span>
+            <span class="stat-unit">km</span>
+          </div>
+          <span class="stat-label">Kilometraje</span>
+        </article>
+        <article class="hero-stat-card" aria-label="Potencia del motor">
+          <span class="stat-icon" aria-hidden="true">⚡</span>
+          <div class="stat-body">
+            <span class="stat-value">120</span>
+            <span class="stat-unit">CV</span>
+          </div>
+          <span class="stat-label">Potencia</span>
+        </article>
+        <article class="hero-stat-card" aria-label="Días en taller">
+          <span class="stat-icon" aria-hidden="true">📅</span>
+          <div class="stat-body">
+            <span class="stat-value">87</span>
+            <span class="stat-unit">días</span>
+          </div>
+          <span class="stat-label">En Taller</span>
+        </article>
+        <article class="hero-stat-card" aria-label="Número de repuestos instalados">
+          <span class="stat-icon" aria-hidden="true">🔧</span>
+          <div class="stat-body">
+            <span class="stat-value">24</span>
+            <span class="stat-unit">pzas</span>
+          </div>
+          <span class="stat-label">Repuestos</span>
+        </article>
+      </div>
+
+      <section class="vehicle-video" aria-labelledby="vehicle-video-title">
+        <div class="vehicle-video-info">
+          <span class="vehicle-video-kicker">Video del modelo</span>
+          <h3 id="vehicle-video-title" class="vehicle-video-title">
+            Toyota GR Yaris: origen, diseño y rendimiento
+          </h3>
+
+          <p class="vehicle-video-text">
+            El Toyota Yaris 1.5L Dynamic Force Dual VVT-i destaca por su eficiencia de combustible,
+            conducción suave y tecnología moderna. Equipado con transmisión automática CVT, ofrece
+            una experiencia cómoda tanto en ciudad como en carretera, mientras que su acabado en
+            Azul Metálico resalta un diseño elegante, aerodinámico y funcional.
+          </p>
+
+        </div>
+        <div class="vehicle-video-frame">
+          <iframe src="https://www.youtube.com/embed/XtXERhTIxBY" title="Toyota GR Yaris" loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <a class="vehicle-video-link" href="https://www.youtube.com/watch?v=XtXERhTIxBY" target="_blank"
+          rel="noopener noreferrer">
+          Abrir video en YouTube
+        </a>
+      </section>
+    </section>
+
+    <!-- ===== ZONA C: PROJECT SIDEBAR ===== -->
+    <aside class="project-sidebar" aria-labelledby="sidebar-title">
+      <h2 id="sidebar-title" class="sidebar-title">Ficha Técnica</h2>
+
+      <!-- Datos del vehículo -->
+      <section class="sidebar-card" aria-labelledby="vehicle-data-title">
+        <h3 id="vehicle-data-title" class="sidebar-card-title">
+          <span aria-hidden="true">🚗</span> Datos del Vehículo
+        </h3>
+        <dl class="vehicle-specs">
+          <div class="spec-row">
+            <dt class="spec-term">Matrícula</dt>
+            <dd class="spec-value"><code>CRC-7842</code></dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">VIN</dt>
+            <dd class="spec-value spec-value--mono"><code>JTDBT4K31R1234567</code></dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Modelo</dt>
+            <dd class="spec-value">Yaris XLE 2026</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Color</dt>
+            <dd class="spec-value">
+              <span class="color-swatch" aria-label="Muestra de color azul metálico"
+                style="--swatch-color: #1e6bbf;"></span>
+              Azul Metálico
+            </dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Motor</dt>
+            <dd class="spec-value">1.5L Dynamic Force Dual VVT-i</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Transmisión</dt>
+            <dd class="spec-value">CVT Direct Shift</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Cilindrada</dt>
+            <dd class="spec-value">1,496 cc</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Kilometraje</dt>
+            <dd class="spec-value">12,500 km</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Combustible</dt>
+            <dd class="spec-value">Gasolina Regular</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Tracción</dt>
+            <dd class="spec-value">Delantera (FWD)</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Propietario -->
+      <section class="sidebar-card sidebar-card--owner" aria-labelledby="owner-title">
+        <h3 id="owner-title" class="sidebar-card-title">
+          <span aria-hidden="true">👤</span> Propietario
+        </h3>
+        <div class="owner-profile">
+          <div class="owner-avatar" aria-hidden="true">CV</div>
+          <div class="owner-info">
+            <strong class="owner-name">Carlos Vargas</strong>
+            <span class="owner-id">ID: CV-2026-0483</span>
+          </div>
+        </div>
+        <address class="owner-contact">
+          <a href="tel:+50688887777" class="contact-link" aria-label="Llamar a Carlos Vargas">
+            <span aria-hidden="true">📞</span> +506 8888-7777
+          </a>
+          <a href="mailto:carlos.vargas@email.com" class="contact-link" aria-label="Enviar correo a Carlos Vargas">
+            <span aria-hidden="true">✉️</span> carlos.vargas@email.com
+          </a>
+        </address>
+      </section>
+
+      <!-- Técnico -->
+      <section class="sidebar-card sidebar-card--tech" aria-labelledby="tech-title">
+        <h3 id="tech-title" class="sidebar-card-title">
+          <span aria-hidden="true">🔩</span> Técnico Responsable
+        </h3>
+        <div class="owner-profile">
+          <div class="owner-avatar owner-avatar--tech" aria-hidden="true">AJ</div>
+          <div class="owner-info">
+            <strong class="owner-name">Andrés Jiménez</strong>
+            <span class="owner-id">Técnico Senior · Lic. #TM-0291</span>
+          </div>
+        </div>
+        <address class="owner-contact">
+          <a href="tel:+50677776666" class="contact-link" aria-label="Llamar a Andrés Jiménez">
+            <span aria-hidden="true">📞</span> +506 7777-6666
+          </a>
+          <a href="mailto:a.jimenez@precisionmotors.cr" class="contact-link"
+            aria-label="Enviar correo a Andrés Jiménez">
+            <span aria-hidden="true">✉️</span> a.jimenez@precisionmotors.cr
+          </a>
+        </address>
+      </section>
+
+      <!-- Presupuesto -->
+      <section class="sidebar-card" aria-labelledby="budget-title">
+        <h3 id="budget-title" class="sidebar-card-title">
+          <span aria-hidden="true">💰</span> Presupuesto del Proyecto
+        </h3>
+        <dl class="budget-list">
+          <div class="spec-row">
+            <dt class="spec-term">N.° Presupuesto</dt>
+            <dd class="spec-value"><code>PM-2026-0874</code></dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Aprobado</dt>
+            <dd class="spec-value spec-value--success">₡ 2,850,000</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Ejecutado</dt>
+            <dd class="spec-value spec-value--warning">₡ 1,910,500</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">Disponible</dt>
+            <dd class="spec-value spec-value--info">₡ 939,500</dd>
+          </div>
+          <div class="spec-row">
+            <dt class="spec-term">% Ejecutado</dt>
+            <dd class="spec-value">67.04%</dd>
+          </div>
+        </dl>
+        <div class="budget-bar-track" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"
+          aria-label="Presupuesto ejecutado: 67%">
+          <div class="budget-bar-fill" style="--progress: 67%"></div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- ===== ZONA D: STATUS SECTION ===== -->
+    <section class="status-section" id="status" aria-labelledby="status-title">
+      <div class="section-header">
+        <h2 id="status-title" class="section-title">
+          <span aria-hidden="true">⚙️</span> Estado Mecánico
+        </h2>
+        <p class="section-subtitle">Seguimiento detallado por sistema del Toyota Yaris 2026</p>
+      </div>
+
+      <!-- STATUS GRID — estructura exacta requerida -->
+      <div class="status-grid" role="list" aria-label="Tarjetas de estado mecánico">
+
+        <!-- Tarjeta 1: Motor -->
+        <article class="status-card status-card--completed" role="listitem" aria-labelledby="card-motor-title">
+          <div class="status-card-header">
+            <div class="status-icon-wrap status-icon-wrap--completed" aria-hidden="true">
+              <span class="status-icon">🔋</span>
+            </div>
+            <div class="status-card-meta">
+              <h3 id="card-motor-title" class="status-card-title">Motor 1.5L Dynamic Force</h3>
+              <span class="status-badge status-badge--completed" role="status"
+                aria-label="Estado: Completado">Completado</span>
+            </div>
+          </div>
+          <p class="status-card-desc">Revisión completa de válvulas, pistones y sistema de lubricación. Aceite Mobil 1
+            5W-30 instalado. Motor dentro de especificaciones Toyota.</p>
+          <div class="status-meter-block" aria-label="Progreso: 100%">
+            <div class="meter-header">
+              <span class="meter-label">Progreso</span>
+              <span class="meter-value" aria-hidden="true">100%</span>
+            </div>
+            <meter class="status-meter" value="100" min="0" max="100" aria-label="Motor completado al 100%">100%</meter>
+          </div>
+          <div class="status-card-footer">
+            <span class="status-tag">Completado · 02 Jun 2026</span>
+            <span class="status-tech">Téc: A. Jiménez</span>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2: Transmisión -->
+        <article class="status-card status-card--in-progress" role="listitem" aria-labelledby="card-trans-title">
+          <div class="status-card-header">
+            <div class="status-icon-wrap status-icon-wrap--in-progress" aria-hidden="true">
+              <span class="status-icon">⚙️</span>
+            </div>
+            <div class="status-card-meta">
+              <h3 id="card-trans-title" class="status-card-title">Transmisión CVT</h3>
+              <span class="status-badge status-badge--in-progress" role="status" aria-label="Estado: En Proceso">En
+                Proceso</span>
+            </div>
+          </div>
+          <p class="status-card-desc">Calibración del sistema CVT Direct Shift. Reemplazo de correa y poleas. Aceite
+            Toyota CVT FE. Progreso al 60% de la revisión programada.</p>
+          <div class="status-meter-block" aria-label="Progreso: 60%">
+            <div class="meter-header">
+              <span class="meter-label">Progreso</span>
+              <span class="meter-value" aria-hidden="true">60%</span>
+            </div>
+            <meter class="status-meter status-meter--in-progress" value="60" min="0" max="100"
+              aria-label="Transmisión en progreso al 60%">60%</meter>
+          </div>
+          <div class="status-card-footer">
+            <span class="status-tag">En Proceso · Est. 18 Jun 2026</span>
+            <span class="status-tech">Téc: A. Jiménez</span>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3: Frenos -->
+        <article class="status-card status-card--pending" role="listitem" aria-labelledby="card-frenos-title">
+          <div class="status-card-header">
+            <div class="status-icon-wrap status-icon-wrap--pending" aria-hidden="true">
+              <span class="status-icon">🛑</span>
+            </div>
+            <div class="status-card-meta">
+              <h3 id="card-frenos-title" class="status-card-title">Sistema de Frenos ABS</h3>
+              <span class="status-badge status-badge--pending" role="status"
+                aria-label="Estado: Pendiente">Pendiente</span>
+            </div>
+          </div>
+          <p class="status-card-desc">Sustitución de pastillas y discos delanteros/traseros. Revisión del módulo ABS con
+            VSC. Purga del líquido de frenos DOT 4. Estimado 20% completado.</p>
+          <div class="status-meter-block" aria-label="Progreso: 20%">
+            <div class="meter-header">
+              <span class="meter-label">Progreso</span>
+              <span class="meter-value" aria-hidden="true">20%</span>
+            </div>
+            <meter class="status-meter status-meter--pending" value="20" min="0" max="100"
+              aria-label="Sistema de frenos al 20%">20%</meter>
+          </div>
+          <div class="status-card-footer">
+            <span class="status-tag">Pendiente · Est. 22 Jun 2026</span>
+            <span class="status-tech">Téc: R. Mora</span>
+          </div>
+        </article>
+
+        <!-- Tarjeta 4: Suspensión -->
+        <article class="status-card status-card--pending" role="listitem" aria-labelledby="card-susp-title">
+          <div class="status-card-header">
+            <div class="status-icon-wrap status-icon-wrap--pending" aria-hidden="true">
+              <span class="status-icon">🏎️</span>
+            </div>
+            <div class="status-card-meta">
+              <h3 id="card-susp-title" class="status-card-title">Suspensión Delantera</h3>
+              <span class="status-badge status-badge--pending" role="status"
+                aria-label="Estado: Pendiente">Pendiente</span>
+            </div>
+          </div>
+          <p class="status-card-desc">Reemplazo de amortiguadores KYB Excel-G delanteros y bujes de barra
+            estabilizadora. Alineación y balanceo de cuatro ruedas pendiente. Avance inicial 10%.</p>
+          <div class="status-meter-block" aria-label="Progreso: 10%">
+            <div class="meter-header">
+              <span class="meter-label">Progreso</span>
+              <span class="meter-value" aria-hidden="true">10%</span>
+            </div>
+            <meter class="status-meter status-meter--pending" value="10" min="0" max="100"
+              aria-label="Suspensión delantera al 10%">10%</meter>
+          </div>
+          <div class="status-card-footer">
+            <span class="status-tag">Pendiente · Est. 25 Jun 2026</span>
+            <span class="status-tech">Téc: R. Mora</span>
+          </div>
+        </article>
+
+        <!-- Tarjeta 5: Carrocería -->
+        <article class="status-card status-card--completed" role="listitem" aria-labelledby="card-carroceria-title">
+          <div class="status-card-header">
+            <div class="status-icon-wrap status-icon-wrap--completed" aria-hidden="true">
+              <span class="status-icon">🎨</span>
+            </div>
+            <div class="status-card-meta">
+              <h3 id="card-carroceria-title" class="status-card-title">Carrocería y Pintura</h3>
+              <span class="status-badge status-badge--completed" role="status"
+                aria-label="Estado: Completado">Completado</span>
+            </div>
+          </div>
+          <p class="status-card-desc">Corrección de abolladuras, aplicación de pintura Toyota Azul Metálico #8X8 con
+            barniz de alta durabilidad. Pulido, encerado y protección ceramic coat aplicada.</p>
+          <div class="status-meter-block" aria-label="Progreso: 100%">
+            <div class="meter-header">
+              <span class="meter-label">Progreso</span>
+              <span class="meter-value" aria-hidden="true">100%</span>
+            </div>
+            <meter class="status-meter" value="100" min="0" max="100"
+              aria-label="Carrocería y pintura completada al 100%">100%</meter>
+          </div>
+          <div class="status-card-footer">
+            <span class="status-tag">Completado · 05 Jun 2026</span>
+            <span class="status-tech">Téc: L. Chaves</span>
+          </div>
+        </article>
+
+        <!-- Tarjeta 6: Sistema Eléctrico -->
+        <article class="status-card status-card--in-progress" role="listitem" aria-labelledby="card-electrico-title">
+          <div class="status-card-header">
+            <div class="status-icon-wrap status-icon-wrap--in-progress" aria-hidden="true">
+              <span class="status-icon">💡</span>
+            </div>
+            <div class="status-card-meta">
+              <h3 id="card-electrico-title" class="status-card-title">Sistema Eléctrico</h3>
+              <span class="status-badge status-badge--in-progress" role="status" aria-label="Estado: En Proceso">En
+                Proceso</span>
+            </div>
+          </div>
+          <p class="status-card-desc">Diagnóstico OBD-II completo, revisión del arnés de cableado, actualización de
+            firmware ECU y revisión del sistema de luces LED adaptativas. 45% avanzado.</p>
+          <div class="status-meter-block" aria-label="Progreso: 45%">
+            <div class="meter-header">
+              <span class="meter-label">Progreso</span>
+              <span class="meter-value" aria-hidden="true">45%</span>
+            </div>
+            <meter class="status-meter status-meter--in-progress" value="45" min="0" max="100"
+              aria-label="Sistema eléctrico al 45%">45%</meter>
+          </div>
+          <div class="status-card-footer">
+            <span class="status-tag">En Proceso · Est. 20 Jun 2026</span>
+            <span class="status-tech">Téc: F. Salazar</span>
+          </div>
+        </article>
+
+      </div><!-- /status-grid -->
+    </section>
+
+    <!-- ===== ZONA E: INVENTORY SECTION ===== -->
+    <section class="inventory-section" id="inventory" aria-labelledby="inventory-title">
+      <div class="section-header">
+        <h2 id="inventory-title" class="section-title">
+          <span aria-hidden="true">📦</span> Inventario de Repuestos
+        </h2>
+        <p class="section-subtitle">Repuestos OEM y certificados para Toyota Yaris 2026 · 1.5L</p>
+        <div class="inventory-summary" role="status" aria-label="Resumen del inventario">
+          <span class="inv-badge inv-badge--in-stock">3 En Stock</span>
+          <span class="inv-badge inv-badge--low">1 Pocas Unidades</span>
+          <span class="inv-badge inv-badge--out">1 Agotado</span>
+        </div>
+      </div>
+
+      <!-- PARTS LIST -->
+      <div class="parts-list" role="list" aria-label="Lista de repuestos">
+
+        <!-- Repuesto 1: Filtro de Aire — En Stock -->
+        <article class="parts-item" role="listitem" aria-labelledby="part-1-name">
+          <div class="part-info">
+            <div class="part-icon-wrap" aria-hidden="true">
+              <span class="part-icon">🌀</span>
+            </div>
+            <div class="part-details">
+              <h3 id="part-1-name" class="part-name">Filtro de Aire Toyota OEM</h3>
+              <div class="part-meta-row">
+                <span class="part-sku" aria-label="SKU: TOY-AF-17801-0T030">SKU: TOY-AF-17801-0T030</span>
+                <span class="part-brand">Toyota Genuine Parts</span>
+              </div>
+            </div>
+          </div>
+          <div class="part-price" aria-label="Precio: 18,500 colones">
+            <span class="price-amount">₡ 18,500</span>
+          </div>
+          <div class="part-actions">
+            <span class="stock-badge stock-badge--in-stock" role="status" aria-label="Estado: En Stock">En Stock</span>
+            <button type="button" class="part-btn" aria-label="Solicitar Filtro de Aire Toyota OEM"
+              id="btn-part-1">Solicitar</button>
+          </div>
+        </article>
+
+        <!-- Repuesto 2: Pastillas de Freno — En Stock -->
+        <article class="parts-item" role="listitem" aria-labelledby="part-2-name">
+          <div class="part-info">
+            <div class="part-icon-wrap" aria-hidden="true">
+              <span class="part-icon">🛑</span>
+            </div>
+            <div class="part-details">
+              <h3 id="part-2-name" class="part-name">Pastillas de Freno Delanteras Toyota</h3>
+              <div class="part-meta-row">
+                <span class="part-sku" aria-label="SKU: TOY-BP-04465-52210">SKU: TOY-BP-04465-52210</span>
+                <span class="part-brand">Toyota Genuine Parts</span>
+              </div>
+            </div>
+          </div>
+          <div class="part-price" aria-label="Precio: 47,200 colones">
+            <span class="price-amount">₡ 47,200</span>
+          </div>
+          <div class="part-actions">
+            <span class="stock-badge stock-badge--in-stock" role="status" aria-label="Estado: En Stock">En Stock</span>
+            <button type="button" class="part-btn" aria-label="Solicitar Pastillas de Freno Delanteras Toyota"
+              id="btn-part-2">Solicitar</button>
+          </div>
+        </article>
+
+        <!-- Repuesto 3: Amortiguadores — Pocas Unidades -->
+        <article class="parts-item" role="listitem" aria-labelledby="part-3-name">
+          <div class="part-info">
+            <div class="part-icon-wrap" aria-hidden="true">
+              <span class="part-icon">🏎️</span>
+            </div>
+            <div class="part-details">
+              <h3 id="part-3-name" class="part-name">Juego de Amortiguadores KYB</h3>
+              <div class="part-meta-row">
+                <span class="part-sku" aria-label="SKU: KYB-EG-341858-341857">SKU: KYB-EG-341858-341857</span>
+                <span class="part-brand">KYB Excel-G</span>
+              </div>
+            </div>
+          </div>
+          <div class="part-price" aria-label="Precio: 132,800 colones">
+            <span class="price-amount">₡ 132,800</span>
+          </div>
+          <div class="part-actions">
+            <span class="stock-badge stock-badge--low" role="status" aria-label="Estado: Pocas Unidades">Pocas
+              Unidades</span>
+            <button type="button" class="part-btn part-btn--warning"
+              aria-label="Solicitar Juego de Amortiguadores KYB (pocas unidades disponibles)"
+              id="btn-part-3">Solicitar</button>
+          </div>
+        </article>
+
+        <!-- Repuesto 4: Bomba de Agua — En Stock -->
+        <article class="parts-item" role="listitem" aria-labelledby="part-4-name">
+          <div class="part-info">
+            <div class="part-icon-wrap" aria-hidden="true">
+              <span class="part-icon">💧</span>
+            </div>
+            <div class="part-details">
+              <h3 id="part-4-name" class="part-name">Bomba de Agua Aisin</h3>
+              <div class="part-meta-row">
+                <span class="part-sku" aria-label="SKU: AISIN-WP-WPT-073">SKU: AISIN-WP-WPT-073</span>
+                <span class="part-brand">Aisin OEM Japan</span>
+              </div>
+            </div>
+          </div>
+          <div class="part-price" aria-label="Precio: 58,500 colones">
+            <span class="price-amount">₡ 58,500</span>
+          </div>
+          <div class="part-actions">
+            <span class="stock-badge stock-badge--in-stock" role="status" aria-label="Estado: En Stock">En Stock</span>
+            <button type="button" class="part-btn" aria-label="Solicitar Bomba de Agua Aisin"
+              id="btn-part-4">Solicitar</button>
+          </div>
+        </article>
+
+        <!-- Repuesto 5: Alternador Denso — Agotado -->
+        <article class="parts-item parts-item--out-of-stock" role="listitem" aria-labelledby="part-5-name">
+          <div class="part-info">
+            <div class="part-icon-wrap" aria-hidden="true">
+              <span class="part-icon">⚡</span>
+            </div>
+            <div class="part-details">
+              <h3 id="part-5-name" class="part-name">Alternador Denso</h3>
+              <div class="part-meta-row">
+                <span class="part-sku" aria-label="SKU: DENSO-ALT-210-0665">SKU: DENSO-ALT-210-0665</span>
+                <span class="part-brand">Denso Japan OEM</span>
+              </div>
+            </div>
+          </div>
+          <div class="part-price" aria-label="Precio: 89,900 colones">
+            <span class="price-amount price-amount--disabled">₡ 89,900</span>
+          </div>
+          <div class="part-actions">
+            <span class="stock-badge stock-badge--out" role="status" aria-label="Estado: Agotado">Agotado</span>
+            <button type="button" class="part-btn part-btn--disabled" disabled
+              aria-label="Alternador Denso no disponible — agotado" aria-disabled="true" id="btn-part-5">No
+              Disponible</button>
+          </div>
+        </article>
+
+      </div><!-- /parts-list -->
+    </section>
+
+    <!-- ===== ZONA F: DASHBOARD FOOTER ===== -->
+    <footer class="dashboard-footer" id="footer" role="contentinfo" aria-labelledby="footer-brand-name">
+      <div class="footer-main">
+
+        <div class="footer-brand-col">
+          <h2 id="footer-brand-name" class="footer-brand">Precision Motors</h2>
+          <p class="footer-tagline">Taller de Restauración y Mecánica de Alta Precisión</p>
+          <address class="footer-address">
+            <p>
+              <span aria-hidden="true">📍</span>
+              Av. Central, Barrio Escalante, San José, Costa Rica
+            </p>
+            <p>
+              <a href="tel:+50622334455" class="footer-link" aria-label="Llamar al número principal del taller">
+                <span aria-hidden="true">📞</span> +506 2233-4455
+              </a>
+            </p>
+            <p>
+              <a href="tel:+50688889999" class="footer-link" aria-label="Llamar al número secundario del taller">
+                <span aria-hidden="true">📱</span> +506 8888-9999
+              </a>
+            </p>
+            <p>
+              <a href="mailto:info@precisionmotors.cr" class="footer-link" aria-label="Enviar correo al taller">
+                <span aria-hidden="true">✉️</span> info@precisionmotors.cr
+              </a>
+            </p>
+          </address>
+        </div>
+
+        <div class="footer-project-col">
+          <h3 class="footer-col-title">Datos del Proyecto</h3>
+          <dl class="footer-specs">
+            <div class="footer-spec-row">
+              <dt>N.° Presupuesto</dt>
+              <dd><code>PM-2026-0874</code></dd>
+            </div>
+            <div class="footer-spec-row">
+              <dt>Vehículo</dt>
+              <dd>Toyota Yaris 2026 · CRC-7842</dd>
+            </div>
+            <div class="footer-spec-row">
+              <dt>Propietario</dt>
+              <dd>Carlos Vargas</dd>
+            </div>
+            <div class="footer-spec-row">
+              <dt>Técnico</dt>
+              <dd>Andrés Jiménez</dd>
+            </div>
+            <div class="footer-spec-row">
+              <dt>Estado</dt>
+              <dd>En Proceso — 67% completado</dd>
+            </div>
+            <div class="footer-spec-row">
+              <dt>Entrega Estimada</dt>
+              <dd>30 de Junio de 2026</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="footer-legal-col">
+          <h3 class="footer-col-title">Información Académica</h3>
+          <p class="footer-legal-text">
+            Este dashboard fue desarrollado como parte del Laboratorio 2 del curso
+            <strong>ISW-521 Programación en Ambiente Web I</strong>.
+            Tema: Layouts Híbridos con CSS Grid + Flexbox.
+          </p>
+          <p class="footer-legal-text">
+            Toda la información contenida en este sistema es de carácter demostrativo
+            y académico. Los datos del vehículo, propietario y presupuesto son ficticios
+            y elaborados exclusivamente con fines educativos.
+          </p>
+          <p class="footer-legal-text footer-legal-text--muted">
+            <strong>Nota Legal:</strong> Precision Motors ® es un nombre ficticio creado
+            para propósitos académicos. Cualquier coincidencia con empresas reales es
+            meramente casual.
+          </p>
+        </div>
+
+      </div><!-- /footer-main -->
+
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; 2026 Precision Motors &mdash; ISW-521 Programación en Ambiente Web I
+          &mdash; Dashboard de Restauración Mecánica &mdash; Toyota Yaris 2026
+        </p>
+        <p class="footer-tech-stack">
+          Desarrollado con <strong>HTML5</strong> &amp; <strong>CSS Grid + Flexbox</strong>
+          · Sin frameworks · Responsive
+        </p>
+      </div>
+    </footer>
+
+  </div><!-- /dashboard-wrapper -->
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const themeToggleIcon = themeToggleBtn.querySelector('.theme-toggle-icon');
+
+      // Check localStorage preference
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      if (currentTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeToggleIcon.textContent = '☀️';
+      } else {
+        themeToggleIcon.textContent = '🌙';
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        let theme = 'dark';
+        if (document.body.classList.contains('light-theme')) {
+          theme = 'light';
+          themeToggleIcon.textContent = '☀️';
+        } else {
+          themeToggleIcon.textContent = '🌙';
+        }
+        localStorage.setItem('theme', theme);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

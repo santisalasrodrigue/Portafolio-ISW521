@@ -1,0 +1,1992 @@
+﻿/* ==========================================================================
+   1. VARIABLES DEL SISTEMA (:root)
+   ========================================================================== */
+:root {
+  /* ==========================================
+     TEMA OSCURO (POR DEFECTO)
+     ========================================== */
+  --bg-primary: #0b0e14;
+  /* Fondo oscuro ultra premium */
+  --bg-secondary: #11151d;
+  /* Fondo secundario */
+  --bg-card: rgba(21, 26, 38, 0.86);
+  /* Tarjetas con transparencia */
+  --bg-card-glass: rgba(21, 26, 38, 0.72);
+  /* Glassmorphic */
+  --border-color: rgba(48, 54, 71, 0.75);
+  /* Borde semi-translúcido */
+  --border-hover: rgba(59, 130, 246, 0.6);
+  /* Azul brillante en hover */
+  --border-glow: rgba(59, 130, 246, 0.15);
+
+  /* --- Colores de Texto --- */
+  --text-primary: #f0f6fc;
+  --text-secondary: #a7b1c2;
+  --text-muted: #6b778a;
+
+  /* --- Colores de Marca y Estados --- */
+  --toyota-blue: #1d4ed8;
+  /* Azul Metálico Yaris 2026 */
+  --toyota-blue-light: #3b82f6;
+  /* Azul brillante de acento */
+  --toyota-red: #eb0a1e;
+  /* Rojo insignia Toyota */
+
+  --color-success: #238636;
+  --color-success-light: #2ea043;
+  --color-warning: #d29922;
+  --color-warning-light: #f1e05a;
+  --color-error: #f85149;
+  --color-error-light: #ff7b72;
+
+  /* --- Glows de Fondo --- */
+  --bg-glow-1: rgba(29, 78, 216, 0.08);
+  --bg-glow-2: rgba(235, 10, 30, 0.03);
+
+  /* --- Tipografía --- */
+  --font-title: 2.5rem;
+  --font-subtitle: 1.45rem;
+  --font-base: 1rem;
+  --font-small: 0.875rem;
+
+  /* --- Espaciados Variables (xs a 2xl) --- */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --space-md: clamp(1rem, 1.5vw, 1.25rem);
+  --space-lg: clamp(1.5rem, 2vw, 2rem);
+  --space-xl: clamp(2rem, 3vw, 2.5rem);
+  --space-2xl: clamp(2.5rem, 4vw, 3.5rem);
+
+  /* --- Radios de Borde --- */
+  --radius-sm: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* --- Sombras & Glows --- */
+  --shadow-card: 0 10px 24px rgba(0, 0, 0, 0.32);
+  --shadow-btn: 0 4px 14px rgba(29, 78, 216, 0.35);
+  --shadow-hover: 0 16px 34px rgba(0, 0, 0, 0.42), 0 0 18px rgba(59, 130, 246, 0.13);
+  --glow-accent: 0 0 15px rgba(59, 130, 246, 0.3);
+  --glow-hero: 0 26px 70px rgba(29, 78, 216, 0.22);
+  --gradient-accent: linear-gradient(135deg, var(--toyota-blue), var(--toyota-blue-light) 52%, var(--toyota-red));
+
+  /* --- Transiciones --- */
+  --transition-smooth: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================
+   TEMA CLARO (ACTIVADO POR CLASE)
+   ========================================== */
+body.light-theme {
+  --bg-primary: #f5f7fa;
+  /* Fondo claro premium */
+  --bg-secondary: #eef2f6;
+  /* Fondo secundario claro */
+  --bg-card: rgba(255, 255, 255, 0.92);
+  /* Tarjetas con transparencia */
+  --bg-card-glass: rgba(255, 255, 255, 0.86);
+  --border-color: rgba(200, 208, 218, 0.8);
+  --border-hover: rgba(29, 78, 216, 0.5);
+  --border-glow: rgba(29, 78, 216, 0.08);
+
+  /* --- Colores de Texto --- */
+  --text-primary: #17202f;
+  --text-secondary: #4d5b70;
+  --text-muted: #8e9cae;
+
+  /* --- Sombras & Glows Claro --- */
+  --shadow-card: 0 10px 25px rgba(165, 175, 190, 0.25);
+  --shadow-hover: 0 18px 35px rgba(165, 175, 190, 0.4), 0 0 15px rgba(29, 78, 216, 0.1);
+
+  /* --- Glows de Fondo Claro --- */
+  --bg-glow-1: rgba(29, 78, 216, 0.05);
+  --bg-glow-2: rgba(235, 10, 30, 0.02);
+}
+
+
+/* ==========================================================================
+   2. ESTILOS BASE Y RESET
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(59, 130, 246, 0.14), transparent 28rem),
+    radial-gradient(circle at 82% 6%, rgba(235, 10, 30, 0.08), transparent 24rem),
+    linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: var(--font-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  padding: var(--space-md);
+  position: relative;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Transiciones del Tema --- */
+body,
+.dashboard-header,
+.project-sidebar,
+.sidebar-card,
+.status-card,
+.parts-item,
+.hero-stat-card,
+.hero-progress-block {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Glows de fondo decorativos --- */
+.bg-glow {
+  position: fixed;
+  width: min(600px, 80vw);
+  height: min(600px, 80vw);
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.62;
+  transition: background 0.5s ease;
+  animation: ambient-drift 14s ease-in-out infinite alternate;
+}
+
+.bg-glow--1 {
+  top: -10%;
+  right: -5%;
+  background: var(--bg-glow-1);
+}
+
+.bg-glow--2 {
+  bottom: 10%;
+  left: -10%;
+  background: var(--bg-glow-2);
+  animation-delay: -6s;
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(28px, -18px, 0) scale(1.12);
+  }
+}
+
+/* --- Theme Toggle Button --- */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--bg-card);
+  border-color: var(--toyota-blue-light);
+  transform: scale(1.08) rotate(15deg);
+  box-shadow: var(--glow-accent);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* --- Animaciones de Entrada (fade-up) --- */
+.dashboard-header,
+.vehicle-hero,
+.project-sidebar,
+.status-section,
+.inventory-section,
+.dashboard-footer {
+  animation: fade-up 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.dashboard-header {
+  animation-delay: 0.05s;
+}
+
+.vehicle-hero {
+  animation-delay: 0.15s;
+}
+
+.project-sidebar {
+  animation-delay: 0.25s;
+}
+
+.status-section {
+  animation-delay: 0.35s;
+}
+
+.inventory-section {
+  animation-delay: 0.45s;
+}
+
+.dashboard-footer {
+  animation-delay: 0.55s;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  background-color: rgba(240, 246, 252, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: var(--radius-sm);
+  color: var(--toyota-blue-light);
+}
+
+a {
+  color: var(--toyota-blue-light);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   3. ESTRUCTURA Y GRID PRINCIPAL (OBLIGATORIO)
+   ========================================================================== */
+.dashboard-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto auto auto;
+  grid-template-areas:
+    "header header"
+    "hero sidebar"
+    "status status"
+    "parts parts"
+    "footer footer";
+  gap: var(--space-md);
+  max-width: 1480px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Asignación de áreas del grid principal */
+.dashboard-header {
+  grid-area: header;
+}
+
+.vehicle-hero {
+  grid-area: hero;
+}
+
+.project-sidebar {
+  grid-area: sidebar;
+}
+
+.status-section {
+  grid-area: status;
+}
+
+.inventory-section {
+  grid-area: parts;
+}
+
+.dashboard-footer {
+  grid-area: footer;
+}
+
+
+
+/* ==========================================================================
+   4. HEADER (.dashboard-header)
+   ========================================================================== */
+.dashboard-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: var(--space-md);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.dashboard-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(59, 130, 246, 0.12) 46%, transparent 68%);
+  transform: translateX(-120%);
+  animation: header-sheen 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes header-sheen {
+
+  0%,
+  42% {
+    transform: translateX(-120%);
+  }
+
+  58%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: var(--font-subtitle);
+  font-weight: 800;
+  background: linear-gradient(to right, var(--text-primary), var(--toyota-blue-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0;
+}
+
+.brand-tagline {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.header-nav .nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: var(--space-md);
+}
+
+.nav-link {
+  font-size: var(--font-small);
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.12);
+  opacity: 0;
+  transform: scaleX(0.65);
+  transition: var(--transition-fast);
+  z-index: -1;
+}
+
+.nav-link:hover,
+.nav-link--active {
+  color: var(--text-primary);
+  background-color: rgba(240, 246, 252, 0.05);
+}
+
+.nav-link:hover::before,
+.nav-link--active::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-link--active::after {
+  content: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.35rem 0.75rem;
+  background-color: rgba(35, 134, 54, 0.15);
+  border: 1px solid rgba(46, 160, 67, 0.3);
+  border-radius: 50px;
+  font-size: var(--font-small);
+  color: var(--color-success-light);
+  font-weight: 600;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success-light);
+  border-radius: 50%;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(46, 160, 67, 0.7);
+  }
+
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(46, 160, 67, 0);
+  }
+
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(46, 160, 67, 0);
+  }
+}
+
+.header-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  background-color: var(--bg-primary);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   5. VEHICLE HERO (.vehicle-hero)
+   ========================================================================== */
+.vehicle-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+}
+
+.hero-figure {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 280px;
+  max-height: 520px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card), var(--glow-hero);
+  background-color: #0b0e14;
+  transform-style: preserve-3d;
+  animation: hero-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-figure::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: calc(var(--radius-lg) - 2px);
+  opacity: 0.6;
+  transform: scale(0.97);
+  animation: focus-frame 4.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Pseudo-elemento para el brillo sweeping premium */
+.hero-figure::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.0) 30%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.0) 70%,
+      transparent);
+  transform: skewX(-20deg);
+  animation: sweep-shine 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  filter: saturate(1.12) contrast(1.04);
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+  animation: vehicle-showcase 6.8s ease-in-out infinite alternate;
+}
+
+/* Hover en el contenedor escala levemente la imagen */
+.hero-figure:hover .hero-image {
+  transform: scale(1.055) translateY(-6px);
+  filter: saturate(1.2) contrast(1.08) drop-shadow(0 18px 24px rgba(59, 130, 246, 0.18));
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(11, 14, 20, 0.05) 0%,
+      rgba(11, 14, 20, 0.32) 48%,
+      rgba(11, 14, 20, 0.9) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Animaciones Keyframes de Héroe --- */
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: perspective(1200px) rotateX(7deg) translateY(28px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(1200px) rotateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes vehicle-showcase {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(0, -9px, 0) scale(1.025);
+  }
+}
+
+@keyframes focus-frame {
+
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+
+  50% {
+    opacity: 0.78;
+    transform: scale(1);
+  }
+}
+
+@keyframes sweep-shine {
+  0% {
+    left: -150%;
+  }
+
+  20%,
+  100% {
+    left: 150%;
+  }
+}
+
+
+.hero-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.hero-badge-row {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.hero-badge {
+  font-size: var(--font-small);
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.hero-badge--year {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.hero-badge--status {
+  background-color: var(--toyota-blue-light);
+  color: var(--text-primary);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.hero-vehicle-name {
+  font-size: var(--font-title);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-vehicle-sub {
+  font-size: var(--font-base);
+  color: rgba(240, 246, 252, 0.78);
+  font-weight: 500;
+}
+
+/* Barra de Progreso de Héroe */
+.hero-progress-block {
+  background: rgba(17, 21, 29, 0.88);
+  border: 1px solid rgba(48, 54, 61, 0.8);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(12px);
+  max-width: 600px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  animation: panel-slide-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.hero-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.hero-progress-label {
+  font-size: var(--font-small);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.hero-progress-value {
+  font-size: var(--font-base);
+  font-weight: 800;
+  color: var(--toyota-blue-light);
+}
+
+.hero-progress-track {
+  width: 100%;
+  height: 10px;
+  background-color: rgba(240, 246, 252, 0.1);
+  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.hero-progress-fill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(45deg,
+      var(--toyota-blue) 25%,
+      var(--toyota-blue-light) 25%,
+      var(--toyota-blue-light) 50%,
+      var(--toyota-blue) 50%,
+      var(--toyota-blue) 75%,
+      var(--toyota-blue-light) 75%,
+      var(--toyota-blue-light) 100%);
+  background-size: 30px 30px;
+  border-radius: 50px;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: progress-slide 1.5s linear infinite;
+  position: relative;
+}
+
+.hero-progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.46), transparent);
+  animation: progress-glint 2.2s ease-in-out infinite;
+}
+
+@keyframes progress-slide {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 30px 0;
+  }
+}
+
+@keyframes progress-glint {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes panel-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.hero-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+}
+
+/* Tarjetas de Estadísticas Rápidas */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.hero-stat-card {
+  min-width: 0;
+  background-color: var(--bg-card-glass);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  animation: metric-pop 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-stat-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.hero-stat-card:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.hero-stat-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.hero-stat-card:nth-child(4) {
+  animation-delay: 0.5s;
+}
+
+.hero-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.22), transparent 38%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.hero-stat-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.hero-stat-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes metric-pop {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.vehicle-video {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--space-md);
+  align-items: center;
+  background: linear-gradient(135deg, var(--bg-card-glass), rgba(29, 78, 216, 0.09));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  animation: panel-slide-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+
+.vehicle-video::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 92% 10%, rgba(59, 130, 246, 0.22), transparent 34%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.vehicle-video-info,
+.vehicle-video-frame,
+.vehicle-video-link {
+  position: relative;
+  z-index: 1;
+}
+
+.vehicle-video-kicker {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: var(--space-xs);
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 999px;
+  color: var(--toyota-blue-light);
+  background: rgba(59, 130, 246, 0.1);
+  font-size: var(--font-small);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.vehicle-video-title {
+  font-size: var(--font-subtitle);
+  line-height: 1.2;
+  margin-bottom: var(--space-xs);
+}
+
+.vehicle-video-text {
+  color: var(--text-secondary);
+  font-size: var(--font-small);
+}
+
+.vehicle-video-frame {
+  aspect-ratio: 16 / 9;
+  min-width: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+  background: var(--bg-primary);
+}
+
+.vehicle-video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.vehicle-video-link {
+  justify-self: start;
+  width: fit-content;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-small);
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.vehicle-video-link:hover {
+  color: var(--text-primary);
+  border-color: var(--toyota-blue-light);
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+
+.stat-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.stat-body {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.stat-value {
+  font-size: var(--font-subtitle);
+  font-weight: 800;
+}
+
+.stat-unit {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   6. PROJECT SIDEBAR (.project-sidebar)
+   ========================================================================== */
+.project-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  height: 100%;
+}
+
+.sidebar-title {
+  font-size: var(--font-subtitle);
+  font-weight: 800;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.sidebar-card {
+  background-color: var(--bg-card-glass);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-card::before,
+.status-card::before,
+.parts-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), transparent 42%, rgba(235, 10, 30, 0.08));
+  opacity: 0;
+  transition: var(--transition-smooth);
+  pointer-events: none;
+}
+
+.sidebar-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.sidebar-card:hover::before {
+  opacity: 1;
+}
+
+.sidebar-card>*,
+.status-card>*,
+.parts-item>* {
+  position: relative;
+  z-index: 1;
+}
+
+
+.sidebar-card-title {
+  font-size: var(--font-small);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  border-left: 3px solid var(--toyota-blue-light);
+  padding-left: var(--space-sm);
+}
+
+/* Ficha Técnica */
+.vehicle-specs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px dashed rgba(48, 54, 61, 0.5);
+  font-size: var(--font-small);
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-term {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.spec-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.spec-value--mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
+.spec-value--success {
+  color: var(--color-success-light);
+}
+
+.spec-value--warning {
+  color: var(--color-warning-light);
+}
+
+.spec-value--info {
+  color: var(--toyota-blue-light);
+}
+
+.color-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: var(--swatch-color);
+  border-radius: 50%;
+  margin-right: var(--space-xs);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  vertical-align: middle;
+}
+
+/* Perfiles (Propietario / Técnico) */
+.owner-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.owner-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--toyota-blue), var(--toyota-blue-light));
+  color: var(--text-primary);
+  font-weight: 800;
+  font-size: var(--font-subtitle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border-color);
+}
+
+.owner-avatar--tech {
+  background: linear-gradient(135deg, var(--color-warning), var(--color-warning-light));
+}
+
+.owner-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-name {
+  font-size: var(--font-base);
+  font-weight: 700;
+}
+
+.owner-id {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+}
+
+.owner-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-style: normal;
+}
+
+.contact-link {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.contact-link:hover {
+  border-color: var(--toyota-blue-light);
+  color: var(--text-primary);
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Barra de Presupuesto */
+.budget-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.budget-bar-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-primary);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.budget-bar-fill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(to right, var(--color-success), var(--color-warning));
+  border-radius: 50px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   7. STATUS SECTION & STATUS GRID (OBLIGATORIO)
+   ========================================================================== */
+.status-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.section-title {
+  font-size: var(--font-subtitle);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: fit-content;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.45rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--gradient-accent);
+  transform-origin: left;
+  animation: title-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes title-reveal {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.section-subtitle {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+}
+
+/* Estructura del Grid de Estados */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Tarjetas de Estado Individuales */
+.status-card {
+  background-color: var(--bg-card-glass);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  animation: card-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.status-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.status-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.status-card:nth-child(3) {
+  animation-delay: 0.19s;
+}
+
+.status-card:nth-child(4) {
+  animation-delay: 0.26s;
+}
+
+.status-card:nth-child(5) {
+  animation-delay: 0.33s;
+}
+
+.status-card:nth-child(6) {
+  animation-delay: 0.4s;
+}
+
+.status-card:hover {
+  transform: translateY(-5px);
+}
+
+.status-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-card.status-card--completed:hover {
+  border-color: var(--color-success-light);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 18px rgba(46, 160, 67, 0.3);
+}
+
+.status-card.status-card--in-progress:hover {
+  border-color: var(--color-warning);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 18px rgba(210, 153, 34, 0.3);
+}
+
+.status-card.status-card--pending:hover {
+  border-color: var(--toyota-blue-light);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 18px rgba(59, 130, 246, 0.3);
+}
+
+
+.status-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.status-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+  transition: var(--transition-spring);
+}
+
+.status-card:hover .status-icon-wrap {
+  transform: translateY(-2px) rotate(-4deg) scale(1.08);
+}
+
+/* Variaciones de Iconos por Estado */
+.status-icon-wrap--completed {
+  background-color: rgba(35, 134, 54, 0.15);
+  border-color: rgba(46, 160, 67, 0.4);
+}
+
+.status-icon-wrap--in-progress {
+  background-color: rgba(210, 153, 34, 0.15);
+  border-color: rgba(210, 153, 34, 0.4);
+}
+
+.status-icon-wrap--pending {
+  background-color: rgba(48, 54, 61, 0.4);
+  border-color: var(--border-color);
+}
+
+.status-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.status-card-title {
+  font-size: var(--font-base);
+  font-weight: 700;
+}
+
+.status-badge {
+  font-size: var(--font-small);
+  font-weight: 600;
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 50px;
+  width: fit-content;
+  transition: var(--transition-fast);
+}
+
+.status-card:hover .status-badge,
+.parts-item:hover .stock-badge,
+.inv-badge:hover {
+  transform: translateY(-1px);
+}
+
+.status-badge--completed {
+  background-color: rgba(35, 134, 54, 0.15);
+  color: var(--color-success-light);
+  border: 1px solid rgba(46, 160, 67, 0.3);
+}
+
+.status-badge--in-progress {
+  background-color: rgba(210, 153, 34, 0.15);
+  color: var(--color-warning-light);
+  border: 1px solid rgba(210, 153, 34, 0.3);
+}
+
+.status-badge--pending {
+  background-color: rgba(139, 148, 158, 0.1);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.status-card-desc {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  flex-grow: 1;
+}
+
+/* Bloque del Meter de Estado */
+.status-meter-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.meter-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-small);
+  font-weight: 600;
+}
+
+.meter-label {
+  color: var(--text-secondary);
+}
+
+.meter-value {
+  color: var(--text-primary);
+}
+
+/* Rediseño Moderno de Etiquetas meter */
+.status-meter {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+/* Soporte de estilos para meter en navegadores */
+.status-meter::-webkit-meter-bar {
+  background: var(--bg-primary);
+  border-radius: 50px;
+  border: none;
+}
+
+.status-meter::-webkit-meter-optimum-value {
+  background: linear-gradient(to right, var(--color-success), var(--color-success-light));
+  border-radius: 50px;
+}
+
+.status-meter--in-progress::-webkit-meter-optimum-value {
+  background: linear-gradient(to right, var(--color-warning), var(--color-warning-light));
+}
+
+.status-meter--pending::-webkit-meter-optimum-value {
+  background: linear-gradient(to right, var(--toyota-blue), var(--toyota-blue-light));
+}
+
+.status-card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(48, 54, 61, 0.5);
+  padding-top: var(--space-sm);
+}
+
+.status-tag {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.status-tech {
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   8. INVENTORY SECTION & PARTS LIST (OBLIGATORIO)
+   ========================================================================== */
+.inventory-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+}
+
+.inventory-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.inv-badge {
+  font-size: var(--font-small);
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.inv-badge--in-stock {
+  background-color: rgba(35, 134, 54, 0.1);
+  color: var(--color-success-light);
+  border: 1px solid rgba(46, 160, 67, 0.2);
+}
+
+.inv-badge--low {
+  background-color: rgba(210, 153, 34, 0.1);
+  color: var(--color-warning-light);
+  border: 1px solid rgba(210, 153, 34, 0.2);
+}
+
+.inv-badge--out {
+  background-color: rgba(248, 81, 73, 0.1);
+  color: var(--color-error-light);
+  border: 1px solid rgba(248, 81, 73, 0.2);
+}
+
+/* Lista de repuestos */
+.parts-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Estructura del item de repuestos */
+.parts-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--bg-card-glass);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  animation: part-slide 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.parts-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.parts-item:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.parts-item:nth-child(3) {
+  animation-delay: 0.19s;
+}
+
+.parts-item:nth-child(4) {
+  animation-delay: 0.26s;
+}
+
+.parts-item:nth-child(5) {
+  animation-delay: 0.33s;
+}
+
+.parts-item:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px) scale(1.005);
+  box-shadow: var(--shadow-hover);
+}
+
+.parts-item:hover::before {
+  opacity: 1;
+}
+
+@keyframes part-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* Información del repuesto */
+.part-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1 1 360px;
+  min-width: 0;
+}
+
+.part-icon-wrap {
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.part-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.part-name {
+  font-size: var(--font-base);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.part-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+}
+
+.part-sku {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background-color: rgba(240, 246, 252, 0.05);
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+.part-brand {
+  font-weight: 500;
+}
+
+/* Contenedor del precio */
+.part-price {
+  flex-shrink: 0;
+  text-align: right;
+  margin: 0 var(--space-md);
+}
+
+.price-amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.price-amount--disabled {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+/* Contenedor de acciones del repuesto */
+.part-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stock-badge {
+  font-size: var(--font-small);
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.stock-badge--in-stock {
+  background-color: rgba(35, 134, 54, 0.1);
+  color: var(--color-success-light);
+  border-color: rgba(46, 160, 67, 0.2);
+}
+
+.stock-badge--low {
+  background-color: rgba(210, 153, 34, 0.1);
+  color: var(--color-warning-light);
+  border-color: rgba(210, 153, 34, 0.2);
+}
+
+.stock-badge--out {
+  background-color: rgba(248, 81, 73, 0.1);
+  color: var(--color-error-light);
+  border-color: rgba(248, 81, 73, 0.2);
+}
+
+/* Botón solicitar */
+.part-btn {
+  font-size: var(--font-small);
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--toyota-blue);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.45rem 1.25rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-btn);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.part-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent);
+  transition: none;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.part-btn:hover:not(:disabled)::before {
+  left: 100%;
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.part-btn:hover:not(:disabled) {
+  background-color: var(--toyota-blue-light);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.part-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.part-btn--warning {
+  background-color: var(--color-warning);
+}
+
+.part-btn--warning:hover:not(:disabled) {
+  background-color: var(--color-warning-light);
+  color: var(--bg-primary);
+  box-shadow: 0 0 15px rgba(210, 153, 34, 0.4);
+}
+
+
+.part-btn--disabled {
+  background-color: var(--bg-primary);
+  color: var(--text-muted);
+  border-color: var(--border-color);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Opacidad reducida en items agotados */
+.parts-item--out-of-stock {
+  border-color: rgba(48, 54, 61, 0.4);
+  background-color: rgba(22, 27, 34, 0.5);
+}
+
+.parts-item--out-of-stock .part-icon-wrap {
+  opacity: 0.5;
+}
+
+.parts-item--out-of-stock .part-name {
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   9. DASHBOARD FOOTER (.dashboard-footer)
+   ========================================================================== */
+.dashboard-footer {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+}
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer-brand {
+  font-size: var(--font-subtitle);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.footer-tagline {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+}
+
+.footer-address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+}
+
+.footer-link {
+  color: var(--text-secondary);
+}
+
+.footer-link:hover {
+  color: var(--toyota-blue-light);
+}
+
+.footer-col-title {
+  font-size: var(--font-small);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--toyota-blue-light);
+  margin-bottom: var(--space-md);
+}
+
+.footer-specs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-size: var(--font-small);
+}
+
+.footer-spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid rgba(48, 54, 61, 0.4);
+}
+
+.footer-spec-row dt {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.footer-spec-row dd {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.footer-legal-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-legal-text {
+  font-size: var(--font-small);
+  color: var(--text-secondary);
+  text-align: justify;
+}
+
+.footer-legal-text strong {
+  color: var(--text-primary);
+}
+
+.footer-legal-text--muted {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Footer de Firma */
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.footer-copy {
+  font-weight: 500;
+}
+
+.footer-tech-stack {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+}
+
+.footer-tech-stack strong {
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================================
+   10. AJUSTES FLUIDOS SIN MEDIA QUERIES
+   ========================================================================== */
+.header-brand,
+.header-actions,
+.header-nav .nav-list,
+.hero-progress-meta,
+.status-card-footer,
+.footer-bottom {
+  min-width: 0;
+}
+
+.hero-stats {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+}
+
+.part-name,
+.brand-tagline,
+.footer-copy,
+.footer-tech-stack {
+  overflow-wrap: anywhere;
+}
+
+.spec-value,
+.footer-spec-row dd {
+  overflow-wrap: anywhere;
+}
